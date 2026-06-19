@@ -4,6 +4,7 @@
 package main
 
 import (
+	_ "embed"
 	"fmt"
 	"image/color"
 	"os"
@@ -22,6 +23,9 @@ import (
 
 	"github.com/uAliAmer/cvkit/internal/cv"
 )
+
+//go:embed icon.png
+var iconPNG []byte
 
 // lightTheme forces the light variant regardless of the OS setting.
 type lightTheme struct{}
@@ -50,7 +54,10 @@ type editor struct {
 func main() {
 	a := app.New()
 	a.Settings().SetTheme(lightTheme{})
+	icon := fyne.NewStaticResource("icon.png", iconPNG)
+	a.SetIcon(icon)
 	w := a.NewWindow("CVKit")
+	w.SetIcon(icon)
 
 	e := &editor{
 		app: a, win: w, doc: emptyCV(),

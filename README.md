@@ -19,9 +19,12 @@ works out of the box on any machine.
 
 ## Desktop app (easiest)
 
-`cvkit-gui` runs on Linux, macOS, and Windows. Download a prebuilt binary from
-the [releases page](https://github.com/uAliAmer/cvkit/releases)
-(`cvkit-gui_*_linux_x64`, `_macos_arm64`, `_windows_x64`), unpack, and run it.
+`cvkit-gui` runs on Linux, macOS, and Windows. Grab a ready-to-run bundle from
+the [releases page](https://github.com/uAliAmer/cvkit/releases) and double-click:
+
+- **Linux:** `cvkit-gui_*_x86_64.AppImage` — `chmod +x` it, then run.
+- **Windows:** `cvkit-gui_*_windows_x64.exe` — run directly (no console window).
+- **macOS:** `cvkit-gui_*_macos_arm64.zip` — unzip and open `CVKit.app`.
 
 What you get:
 
