@@ -1,10 +1,10 @@
 {
-  "name": "Jordan Rivera",
+  "name": "John Doe",
   "phone": "+1 555 010 2020",
-  "email": "jordan.rivera@example.com",
+  "email": "john.doe@example.com",
   "location": "Austin, TX",
-  "linkedin": "jordanrivera",
-  "github": "jordanrivera",
+  "linkedin": "ualiamer",
+  "github": "ualiamer",
   "summary": "Full-stack engineer who ships products end-to-end, from schema design and APIs to frontend and deployment. Comfortable across the stack and biased toward shipping things that work.",
   "about": [
     "I build and ship web applications end-to-end.",
@@ -28,17 +28,16 @@
   ],
   "projects": [
     {
-      "name": "Ledgerly: Open-Source Invoicing",
-      "link": "https://github.com/jordanrivera/ledgerly",
-      "dates": "2024 -- Present",
-      "tech": "Go, PostgreSQL, React",
-      "bullets": "Self-hosted invoicing app with multi-currency support and PDF export\nPlugin system for custom tax rules; 1.2k GitHub stars"
+      "name": "Snip: Self-Hosted URL Shortener",
+      "link": "https://github.com/uAliAmer/Svelte-URL-Shortener",
+      "tech": "SvelteKit, Prisma, PostgreSQL, Redis",
+      "bullets": "URL shortener with click analytics, QR codes, tags, link expiry/limits, API keys, and admin panel\nOne-command TLS via Caddy, or one-click Railway deploy"
     },
     {
-      "name": "Pinglet: Uptime Monitor",
-      "link": "https://pinglet.example.com",
-      "tech": "TypeScript, SQLite",
-      "bullets": "Lightweight uptime monitor with status pages and webhook alerts"
+      "name": "Hashban: Backendless Kanban Board",
+      "link": "https://github.com/uAliAmer/Hashban",
+      "tech": "TypeScript",
+      "bullets": "Single-page Kanban board whose entire state lives in the URL hash; sharing the link shares the board"
     }
   ],
   "education": [
