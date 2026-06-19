@@ -1,0 +1,59 @@
+{
+  "name": "Jordan Rivera",
+  "phone": "+1 555 010 2020",
+  "email": "jordan.rivera@example.com",
+  "location": "Austin, TX",
+  "linkedin": "jordanrivera",
+  "github": "jordanrivera",
+  "summary": "Full-stack engineer who ships products end-to-end, from schema design and APIs to frontend and deployment. Comfortable across the stack and biased toward shipping things that work.",
+  "about": [
+    "I build and ship web applications end-to-end.",
+    "I care about clean data models, fast feedback loops, and tools that make a team faster."
+  ],
+  "experience": [
+    {
+      "company": "Northwind Labs",
+      "dates": "Mar 2022 -- Present",
+      "title": "Software Engineer",
+      "location": "Austin, TX",
+      "bullets": "Led the rebuild of the billing service, cutting invoice errors by 90%\nDesigned and shipped a REST API consumed by 40+ internal services\nMentored two junior engineers through their first production launches"
+    },
+    {
+      "company": "Acme Web Co.",
+      "dates": "Jun 2020 -- Mar 2022",
+      "title": "Junior Developer",
+      "location": "Remote",
+      "bullets": "Built customer-facing dashboards in React with 99.9% uptime\nAutomated the release pipeline, taking deploys from hours to minutes"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Ledgerly: Open-Source Invoicing",
+      "link": "https://github.com/jordanrivera/ledgerly",
+      "dates": "2024 -- Present",
+      "tech": "Go, PostgreSQL, React",
+      "bullets": "Self-hosted invoicing app with multi-currency support and PDF export\nPlugin system for custom tax rules; 1.2k GitHub stars"
+    },
+    {
+      "name": "Pinglet: Uptime Monitor",
+      "link": "https://pinglet.example.com",
+      "tech": "TypeScript, SQLite",
+      "bullets": "Lightweight uptime monitor with status pages and webhook alerts"
+    }
+  ],
+  "education": [
+    {
+      "school": "University of Texas at Austin",
+      "dates": "2016 -- 2020",
+      "degree": "B.S. in Computer Science",
+      "location": "Austin, TX",
+      "notes": ""
+    }
+  ],
+  "skills": {
+    "technical": "Go, TypeScript, React, PostgreSQL, Docker, REST APIs",
+    "tools": "Git, Linux, GitHub Actions, Terraform",
+    "languages": "English (native), Spanish (conversational)",
+    "Currently learning": "Rust, Kubernetes"
+  }
+}
