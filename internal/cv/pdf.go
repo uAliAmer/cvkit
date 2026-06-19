@@ -26,6 +26,7 @@ func (c *CV) RenderPDF() ([]byte, error) {
 
 	dark := func() { pdf.SetTextColor(20, 20, 20) }
 	gray := func() { pdf.SetTextColor(110, 110, 110) }
+	blue := func() { pdf.SetTextColor(0, 102, 204) }
 	t := func(s string) string { return tr(sanitizePDF(s)) }
 
 	// Name
@@ -37,11 +38,50 @@ func (c *CV) RenderPDF() ([]byte, error) {
 	}
 	pdf.CellFormat(contentW, 10, t(name), "", 1, "C", false, 0, "")
 
-	// Contact line
-	if cl := c.contactLine(false); cl != "" {
-		gray()
+	// Contact line: centered, with clickable shortened links.
+	type cseg struct{ text, link string }
+	var segs []cseg
+	if c.Email != "" {
+		segs = append(segs, cseg{c.Email, "mailto:" + c.Email})
+	}
+	if c.Phone != "" {
+		segs = append(segs, cseg{c.Phone, ""})
+	}
+	if c.Location != "" {
+		segs = append(segs, cseg{c.Location, ""})
+	}
+	if c.LinkedIn != "" {
+		u, _ := expandHandle(c.LinkedIn, "https://www.linkedin.com/in/")
+		segs = append(segs, cseg{shortenURL(u), u})
+	}
+	if c.GitHub != "" {
+		u, _ := expandHandle(c.GitHub, "https://github.com/")
+		segs = append(segs, cseg{shortenURL(u), u})
+	}
+	if len(segs) > 0 {
 		pdf.SetFont("Helvetica", "", 9)
-		pdf.CellFormat(contentW, 5, t(cl), "", 1, "C", false, 0, "")
+		const sep = "  |  "
+		total := 0.0
+		for i, s := range segs {
+			if i > 0 {
+				total += pdf.GetStringWidth(t(sep))
+			}
+			total += pdf.GetStringWidth(t(s.text))
+		}
+		pdf.SetX(margin + (contentW-total)/2)
+		for i, s := range segs {
+			if i > 0 {
+				gray()
+				pdf.CellFormat(pdf.GetStringWidth(t(sep)), 5, t(sep), "", 0, "L", false, 0, "")
+			}
+			if s.link != "" {
+				blue()
+			} else {
+				gray()
+			}
+			pdf.CellFormat(pdf.GetStringWidth(t(s.text)), 5, t(s.text), "", 0, "L", false, 0, s.link)
+		}
+		pdf.Ln(5)
 	}
 	pdf.Ln(3)
 
@@ -106,11 +146,29 @@ func (c *CV) RenderPDF() ([]byte, error) {
 		section("Projects")
 		for _, p := range c.Projects {
 			heading(p.Name, p.Dates)
-			meta := p.Tech
-			if u := projectURL(p.Link); u != "" {
-				meta = joinMeta(meta, u)
+			// meta line: tech (italic) then a clickable, shortened link.
+			pdf.SetX(margin)
+			wrote := false
+			if p.Tech != "" {
+				gray()
+				pdf.SetFont("Helvetica", "I", 9.5)
+				pdf.CellFormat(pdf.GetStringWidth(t(p.Tech)), 5, t(p.Tech), "", 0, "L", false, 0, "")
+				wrote = true
 			}
-			subheading(meta)
+			if u := projectURL(p.Link); u != "" {
+				if wrote {
+					gray()
+					pdf.SetFont("Helvetica", "I", 9.5)
+					pdf.CellFormat(pdf.GetStringWidth(t("  -  ")), 5, t("  -  "), "", 0, "L", false, 0, "")
+				}
+				disp := shortenURL(u)
+				blue()
+				pdf.SetFont("Helvetica", "", 9.5)
+				pdf.CellFormat(pdf.GetStringWidth(t(disp)), 5, t(disp), "", 0, "L", false, 0, u)
+			}
+			if wrote || projectURL(p.Link) != "" {
+				pdf.Ln(5)
+			}
 			bulletList(p.Bullets)
 			pdf.Ln(1.5)
 		}
@@ -143,6 +201,16 @@ func (c *CV) RenderPDF() ([]byte, error) {
 		return nil, err
 	}
 	return buf.Bytes(), nil
+}
+
+// shortenURL strips the scheme, "www.", and trailing slash for display, while
+// the full URL is still used as the clickable target.
+func shortenURL(u string) string {
+	if i := strings.Index(u, "://"); i >= 0 {
+		u = u[i+3:]
+	}
+	u = strings.TrimPrefix(u, "www.")
+	return strings.TrimRight(u, "/")
 }
 
 // sanitizePDF replaces characters the cp1252 core fonts can't render with
