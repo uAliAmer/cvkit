@@ -82,6 +82,21 @@ cvkit build cv_data_sysadmin.json    # -> cv_sysadmin.tex
 cvkit build --all                    # build them all at once
 ```
 
+## Desktop app
+
+`cvkit-gui` is a cross-platform desktop editor (Linux/macOS/Windows) for the
+same CV JSON, built with [Fyne](https://fyne.io). Open/edit/save a `cv_data.json`,
+add or remove experience/projects/skills, and run Validate, Lint, Build `.tex`,
+or PDF from the toolbar — all sharing the CLI's rendering and validation.
+
+```bash
+go install github.com/uAliAmer/cvkit/gui@latest   # installs the 'gui' binary
+```
+
+Building from source needs a C toolchain and OpenGL/X11 dev headers (Linux:
+`libgl1-mesa-dev xorg-dev`); see the Fyne docs. Prebuilt desktop binaries are on
+the releases page.
+
 ## Data format
 
 `cv_data.json` holds your name, contact handles, summary, and arrays for
