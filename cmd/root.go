@@ -18,6 +18,10 @@ var rootCmd = &cobra.Command{
 	SilenceErrors: true,
 }
 
+// SetVersion wires the build-time version into the root command, enabling
+// `cvgen --version`.
+func SetVersion(v string) { rootCmd.Version = v }
+
 // Execute runs the root command.
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
