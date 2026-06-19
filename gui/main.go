@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"image/color"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"regexp"
 	"strconv"
@@ -176,31 +175,23 @@ func (e *editor) actBuild() {
 }
 
 func (e *editor) actPDF() {
-	bin, err := exec.LookPath("xelatex")
-	if err != nil {
-		dialog.ShowError(fmt.Errorf("xelatex not found in PATH.\nInstall a TeX distribution (TeX Live / MacTeX) to export PDF."), e.win)
-		return
-	}
 	e.commitSkills()
-	tex := deriveTex(e.path)
-	if tex == "" {
+	out := derivePDF(e.path)
+	if out == "" {
 		e.askSaveFirst("Export PDF")
 		return
 	}
-	if err := os.WriteFile(tex, []byte(e.doc.RenderLaTeX()), 0o644); err != nil {
+	data, err := e.doc.RenderPDF()
+	if err != nil {
 		e.fail(err)
 		return
 	}
-	dir := filepath.Dir(tex)
-	cmd := exec.Command(bin, "-interaction=nonstopmode", "-halt-on-error", "-output-directory", dir, filepath.Base(tex))
-	cmd.Dir = dir
-	if out, err := cmd.CombinedOutput(); err != nil {
-		dialog.ShowError(fmt.Errorf("xelatex failed:\n%s", tailBytes(out, 600)), e.win)
+	if err := os.WriteFile(out, data, 0o644); err != nil {
+		e.fail(err)
 		return
 	}
-	pdf := strings.TrimSuffix(tex, ".tex") + ".pdf"
-	dialog.ShowInformation("Export PDF", "Wrote "+pdf, e.win)
-	e.setStatus("Wrote " + pdf)
+	dialog.ShowInformation("Export PDF", "Wrote "+out, e.win)
+	e.setStatus("Wrote " + out)
 }
 
 // ---- layout (tabs) ---------------------------------------------------------
@@ -650,7 +641,10 @@ func (e *editor) confirmDiscard(then func()) {
 
 // ---- misc ------------------------------------------------------------------
 
-func deriveTex(path string) string {
+func deriveTex(path string) string { return deriveOut(path, ".tex") }
+func derivePDF(path string) string { return deriveOut(path, ".pdf") }
+
+func deriveOut(path, ext string) string {
 	if path == "" {
 		return ""
 	}
@@ -661,16 +655,9 @@ func deriveTex(path string) string {
 	case strings.HasPrefix(base, "cv_data_"):
 		base = "cv_" + strings.TrimPrefix(base, "cv_data_")
 	}
-	return filepath.Join(filepath.Dir(path), base+".tex")
+	return filepath.Join(filepath.Dir(path), base+ext)
 }
 
 func remove[T any](s []T, i int) []T {
 	return append(s[:i], s[i+1:]...)
-}
-
-func tailBytes(b []byte, n int) string {
-	if len(b) > n {
-		b = b[len(b)-n:]
-	}
-	return string(b)
 }

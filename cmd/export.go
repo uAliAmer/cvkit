@@ -26,20 +26,36 @@ var formatExt = map[string]struct {
 
 var exportCmd = &cobra.Command{
 	Use:   "export [input] [output]",
-	Short: "Render a CV JSON to a chosen format (tex, md, txt)",
+	Short: "Render a CV JSON to a chosen format (tex, md, txt, pdf)",
 	Args:  cobra.MaximumNArgs(2),
 	RunE: func(cmd *cobra.Command, args []string) error {
-		f, ok := formatExt[strings.ToLower(exportFormat)]
-		if !ok {
-			return fmt.Errorf("unknown format %q (want: tex, md, txt)", exportFormat)
-		}
+		format := strings.ToLower(exportFormat)
 		in := argOrDefault(args, 0, "cv_data.json")
-		out := argOrDefault(args, 1, deriveName(in, f.ext))
-
 		c, err := cv.Load(in)
 		if err != nil {
 			return err
 		}
+
+		// pdf is rendered natively (no LaTeX) and is binary, so handle it apart
+		// from the text renderers.
+		if format == "pdf" {
+			out := argOrDefault(args, 1, deriveName(in, ".pdf"))
+			data, err := c.RenderPDF()
+			if err != nil {
+				return err
+			}
+			if err := os.WriteFile(out, data, 0o644); err != nil {
+				return err
+			}
+			fmt.Printf("wrote %s  ✓\n", out)
+			return nil
+		}
+
+		f, ok := formatExt[format]
+		if !ok {
+			return fmt.Errorf("unknown format %q (want: tex, md, txt, pdf)", exportFormat)
+		}
+		out := argOrDefault(args, 1, deriveName(in, f.ext))
 		if err := os.WriteFile(out, []byte(f.render(c)), 0o644); err != nil {
 			return err
 		}
@@ -49,7 +65,7 @@ var exportCmd = &cobra.Command{
 }
 
 func init() {
-	exportCmd.Flags().StringVarP(&exportFormat, "format", "f", "md", "output format: tex, md, or txt")
+	exportCmd.Flags().StringVarP(&exportFormat, "format", "f", "md", "output format: tex, md, txt, or pdf")
 	rootCmd.AddCommand(exportCmd)
 }
 

@@ -58,8 +58,8 @@ cvkit validate              # sanity-check the JSON before building
 |---|---|
 | `cvkit build [in] [out]` | Render a CV JSON to a LaTeX `.tex`. |
 | `cvkit build --all [dir]` | Build every `cv_data*.json` variant in `dir`, in parallel. |
-| `cvkit export [in] [out]` | Render to another format: `-f tex`, `-f md`, or `-f txt`. |
-| `cvkit pdf [in]` | Build then compile to PDF with XeLaTeX. `--keep-tex` to retain the `.tex`. |
+| `cvkit export [in] [out]` | Render to another format: `-f tex`, `-f md`, `-f txt`, or `-f pdf` (native, no LaTeX). |
+| `cvkit pdf [in]` | Typeset PDF via XeLaTeX (best-looking; needs a TeX install). `--keep-tex` to retain the `.tex`. |
 | `cvkit sync [in] [out]` | Validate then copy the JSON to the portfolio data path. `--force` to sync despite problems. |
 | `cvkit validate [in]` | Check for missing fields and malformed entries. `--links` also HTTP-checks every project link. |
 | `cvkit lint [in]` | Flag content-quality issues: weak verbs, missing metrics, passive voice, over-long bullets. `--strict` to fail. |
@@ -86,8 +86,9 @@ cvkit build --all                    # build them all at once
 
 `cvkit-gui` is a cross-platform desktop editor (Linux/macOS/Windows) for the
 same CV JSON, built with [Fyne](https://fyne.io). Open/edit/save a `cv_data.json`,
-add or remove experience/projects/skills, and run Validate, Lint, Build `.tex`,
-or PDF from the toolbar — all sharing the CLI's rendering and validation.
+add or remove experience/projects/skills, and Build `.tex` or **Export PDF**
+from the toolbar. PDF export is rendered natively in-app — **no LaTeX install
+required** — so it works out of the box.
 
 ```bash
 go install github.com/uAliAmer/cvkit/gui@latest   # installs the 'gui' binary

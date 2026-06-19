@@ -5,6 +5,7 @@ go 1.26.4
 require (
 	fyne.io/fyne/v2 v2.7.4
 	github.com/fsnotify/fsnotify v1.10.1
+	github.com/go-pdf/fpdf v0.9.0
 	github.com/spf13/cobra v1.10.2
 )
 
