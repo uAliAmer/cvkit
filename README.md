@@ -60,8 +60,12 @@ cvgen validate              # sanity-check the JSON before building
 | `cvgen build --all [dir]` | Build every `cv_data*.json` variant in `dir`, in parallel. |
 | `cvgen export [in] [out]` | Render to another format: `-f tex`, `-f md`, or `-f txt`. |
 | `cvgen pdf [in]` | Build then compile to PDF with XeLaTeX. `--keep-tex` to retain the `.tex`. |
-| `cvgen sync [in] [out]` | Copy a validated JSON to the portfolio data path. |
+| `cvgen sync [in] [out]` | Validate then copy the JSON to the portfolio data path. `--force` to sync despite problems. |
 | `cvgen validate [in]` | Check for missing fields and malformed entries. `--links` also HTTP-checks every project link. |
+| `cvgen lint [in]` | Flag content-quality issues: weak verbs, missing metrics, passive voice, over-long bullets. `--strict` to fail. |
+| `cvgen diff <base> <other>` | Show what differs between two variants (skills, projects, bullets). |
+| `cvgen new <role>` | Scaffold `cv_data_<role>.json` from a base (`--from`). |
+| `cvgen tailor [in] --jd <file>` | Match the CV against a job description; show matched keywords, gaps, and which entries to surface. |
 | `cvgen watch [in]` | Rebuild the `.tex` whenever the JSON changes. |
 
 Defaults: input `cv_data.json`; output is derived from the input
