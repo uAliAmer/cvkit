@@ -1,0 +1,15 @@
+# Planning docs — local only
+IDEA.md
+FEATURES.md
+
+# Go
+*.exe
+*.test
+*.out
+dist/
+cvgen
+
+# Editor
+.DS_Store
+.idea/
+.vscode/
