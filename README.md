@@ -16,8 +16,22 @@ changes, and validate the data before you ship.
 go install github.com/uAliAmer/cvgen@latest
 ```
 
-Or grab a prebuilt binary from the [releases page](https://github.com/uAliAmer/cvgen/releases)
-(Linux, macOS, Windows — amd64 and arm64).
+This installs to `$(go env GOPATH)/bin` (usually `~/go/bin`). If `cvgen` isn't
+found afterward, that directory isn't on your `PATH`:
+
+```bash
+echo 'export PATH="$HOME/go/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
+```
+
+Or skip Go entirely — grab a prebuilt binary from the
+[releases page](https://github.com/uAliAmer/cvgen/releases) (Linux, macOS,
+Windows; amd64 and arm64) and drop it in a `PATH` directory:
+
+```bash
+# example: Linux amd64
+tar -xzf cvgen_*_linux_amd64.tar.gz
+sudo mv cvgen /usr/local/bin/
+```
 
 ## Quick start
 
