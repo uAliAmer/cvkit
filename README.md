@@ -1,6 +1,6 @@
 # cvgen
 
-[![CI](https://github.com/uAliAmer/cvgen-golang/actions/workflows/ci.yml/badge.svg)](https://github.com/uAliAmer/cvgen-golang/actions/workflows/ci.yml)
+[![CI](https://github.com/uAliAmer/cvgen/actions/workflows/ci.yml/badge.svg)](https://github.com/uAliAmer/cvgen/actions/workflows/ci.yml)
 
 A single-binary Go CLI that turns one JSON file into a CV. One source of truth,
 many outputs — a LaTeX résumé today, with role-specific variants built from the
@@ -16,7 +16,7 @@ changes, and validate the data before you ship.
 go install github.com/uAliAmer/cvgen@latest
 ```
 
-Or grab a prebuilt binary from the [releases page](https://github.com/uAliAmer/cvgen-golang/releases)
+Or grab a prebuilt binary from the [releases page](https://github.com/uAliAmer/cvgen/releases)
 (Linux, macOS, Windows — amd64 and arm64).
 
 ## Quick start
