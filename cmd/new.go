@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	"github.com/spf13/cobra"
-	"github.com/uAliAmer/cvgen/internal/cv"
+	"github.com/uAliAmer/cvkit/internal/cv"
 )
 
 var (
@@ -45,7 +45,7 @@ var newCmd = &cobra.Command{
 			return err
 		}
 		fmt.Printf("created %s  ✓\n", out)
-		fmt.Printf("next: edit it for the %s role, then `cvgen build %s`\n", args[0], out)
+		fmt.Printf("next: edit it for the %s role, then `cvkit build %s`\n", args[0], out)
 		return nil
 	},
 }

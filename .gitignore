@@ -8,7 +8,7 @@ SPEC.md
 *.test
 *.out
 dist/
-cvgen
+cvkit
 
 # Editor
 .DS_Store

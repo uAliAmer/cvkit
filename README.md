@@ -1,6 +1,6 @@
-# cvgen
+# cvkit
 
-[![CI](https://github.com/uAliAmer/cvgen/actions/workflows/ci.yml/badge.svg)](https://github.com/uAliAmer/cvgen/actions/workflows/ci.yml)
+[![CI](https://github.com/uAliAmer/cvkit/actions/workflows/ci.yml/badge.svg)](https://github.com/uAliAmer/cvkit/actions/workflows/ci.yml)
 
 A single-binary Go CLI that turns one JSON file into a CV. One source of truth,
 many outputs — a LaTeX/PDF résumé, Markdown, and plain text, with role-specific
@@ -13,10 +13,10 @@ changes, and validate the data before you ship.
 ## Install
 
 ```bash
-go install github.com/uAliAmer/cvgen@latest
+go install github.com/uAliAmer/cvkit@latest
 ```
 
-This installs to `$(go env GOPATH)/bin` (usually `~/go/bin`). If `cvgen` isn't
+This installs to `$(go env GOPATH)/bin` (usually `~/go/bin`). If `cvkit` isn't
 found afterward, that directory isn't on your `PATH`:
 
 ```bash
@@ -24,13 +24,13 @@ echo 'export PATH="$HOME/go/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
 ```
 
 Or skip Go entirely — grab a prebuilt binary from the
-[releases page](https://github.com/uAliAmer/cvgen/releases) (Linux, macOS,
+[releases page](https://github.com/uAliAmer/cvkit/releases) (Linux, macOS,
 Windows; amd64 and arm64) and drop it in a `PATH` directory:
 
 ```bash
 # example: Linux amd64
-tar -xzf cvgen_*_linux_amd64.tar.gz
-sudo mv cvgen /usr/local/bin/
+tar -xzf cvkit_*_linux_amd64.tar.gz
+sudo mv cvkit /usr/local/bin/
 ```
 
 ## Example
@@ -40,33 +40,33 @@ generated [`examples/cv_example.tex`](examples/cv_example.tex), and the compiled
 result: **[examples/cv_example.pdf](examples/cv_example.pdf)**.
 
 ```bash
-cvgen build examples/cv_data.json examples/cv_example.tex   # render the .tex
-cvgen pdf   examples/cv_data.json                           # compile to PDF (needs XeLaTeX)
+cvkit build examples/cv_data.json examples/cv_example.tex   # render the .tex
+cvkit pdf   examples/cv_data.json                           # compile to PDF (needs XeLaTeX)
 ```
 
 ## Quick start
 
 ```bash
-cvgen build                 # cv_data.json -> cv.tex
-cvgen pdf                   # cv_data.json -> cv.pdf  (needs XeLaTeX)
-cvgen validate              # sanity-check the JSON before building
+cvkit build                 # cv_data.json -> cv.tex
+cvkit pdf                   # cv_data.json -> cv.pdf  (needs XeLaTeX)
+cvkit validate              # sanity-check the JSON before building
 ```
 
 ## Commands
 
 | Command | What it does |
 |---|---|
-| `cvgen build [in] [out]` | Render a CV JSON to a LaTeX `.tex`. |
-| `cvgen build --all [dir]` | Build every `cv_data*.json` variant in `dir`, in parallel. |
-| `cvgen export [in] [out]` | Render to another format: `-f tex`, `-f md`, or `-f txt`. |
-| `cvgen pdf [in]` | Build then compile to PDF with XeLaTeX. `--keep-tex` to retain the `.tex`. |
-| `cvgen sync [in] [out]` | Validate then copy the JSON to the portfolio data path. `--force` to sync despite problems. |
-| `cvgen validate [in]` | Check for missing fields and malformed entries. `--links` also HTTP-checks every project link. |
-| `cvgen lint [in]` | Flag content-quality issues: weak verbs, missing metrics, passive voice, over-long bullets. `--strict` to fail. |
-| `cvgen diff <base> <other>` | Show what differs between two variants (skills, projects, bullets). |
-| `cvgen new <role>` | Scaffold `cv_data_<role>.json` from a base (`--from`). |
-| `cvgen tailor [in] --jd <file>` | Match the CV against a job description; show matched keywords, gaps, and which entries to surface. |
-| `cvgen watch [in]` | Rebuild the `.tex` whenever the JSON changes. |
+| `cvkit build [in] [out]` | Render a CV JSON to a LaTeX `.tex`. |
+| `cvkit build --all [dir]` | Build every `cv_data*.json` variant in `dir`, in parallel. |
+| `cvkit export [in] [out]` | Render to another format: `-f tex`, `-f md`, or `-f txt`. |
+| `cvkit pdf [in]` | Build then compile to PDF with XeLaTeX. `--keep-tex` to retain the `.tex`. |
+| `cvkit sync [in] [out]` | Validate then copy the JSON to the portfolio data path. `--force` to sync despite problems. |
+| `cvkit validate [in]` | Check for missing fields and malformed entries. `--links` also HTTP-checks every project link. |
+| `cvkit lint [in]` | Flag content-quality issues: weak verbs, missing metrics, passive voice, over-long bullets. `--strict` to fail. |
+| `cvkit diff <base> <other>` | Show what differs between two variants (skills, projects, bullets). |
+| `cvkit new <role>` | Scaffold `cv_data_<role>.json` from a base (`--from`). |
+| `cvkit tailor [in] --jd <file>` | Match the CV against a job description; show matched keywords, gaps, and which entries to surface. |
+| `cvkit watch [in]` | Rebuild the `.tex` whenever the JSON changes. |
 
 Defaults: input `cv_data.json`; output is derived from the input
 (`cv_data.json` → `cv.tex`, `cv_data_qa.json` → `cv_qa.tex`).
@@ -77,9 +77,9 @@ Role-specific résumés are just differently-named data files; the same generato
 handles them all:
 
 ```bash
-cvgen build cv_data_qa.json          # -> cv_qa.tex
-cvgen build cv_data_sysadmin.json    # -> cv_sysadmin.tex
-cvgen build --all                    # build them all at once
+cvkit build cv_data_qa.json          # -> cv_qa.tex
+cvkit build cv_data_sysadmin.json    # -> cv_sysadmin.tex
+cvkit build --all                    # build them all at once
 ```
 
 ## Data format
@@ -93,7 +93,7 @@ groups. Bullets are newline-separated strings.
 ## Compiling the LaTeX
 
 The output uses sans fonts (tgheros / FiraMono), so compile with **XeLaTeX**,
-not pdfLaTeX. `cvgen pdf` does this for you when a TeX distribution is
+not pdfLaTeX. `cvkit pdf` does this for you when a TeX distribution is
 installed.
 
 ## Development
@@ -101,7 +101,7 @@ installed.
 ```bash
 go test ./...     # unit tests
 go vet ./...
-go build -o cvgen .
+go build -o cvkit .
 ```
 
 Templates are embedded with `go:embed`, so the binary is fully self-contained —

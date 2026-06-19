@@ -3,7 +3,7 @@ package main
 import (
 	"runtime/debug"
 
-	"github.com/uAliAmer/cvgen/cmd"
+	"github.com/uAliAmer/cvkit/cmd"
 )
 
 // version is injected at release time via -ldflags by goreleaser.

@@ -1,4 +1,4 @@
-module github.com/uAliAmer/cvgen
+module github.com/uAliAmer/cvkit
 
 go 1.26.4
 

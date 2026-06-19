@@ -1,4 +1,5 @@
 version: 2
+project_name: cvkit
 
 before:
   hooks:
@@ -6,7 +7,7 @@ before:
 
 builds:
   - main: .
-    binary: cvgen
+    binary: cvkit
     env:
       - CGO_ENABLED=0
     goos: [linux, darwin, windows]

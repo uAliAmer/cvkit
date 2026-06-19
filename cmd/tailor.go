@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
-	"github.com/uAliAmer/cvgen/internal/cv"
+	"github.com/uAliAmer/cvkit/internal/cv"
 )
 
 var (
