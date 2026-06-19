@@ -158,29 +158,13 @@ var skillLabels = map[string]string{
 }
 
 func (c *CV) sectionSkills() string {
-	if len(c.Skills) == 0 {
+	skillRows := c.skillRows()
+	if len(skillRows) == 0 {
 		return ""
-	}
-	order := c.skillsOrder
-	if len(order) == 0 {
-		for k := range c.Skills {
-			order = append(order, k)
-		}
 	}
 	var rows []string
-	for _, key := range order {
-		val := strings.TrimSpace(c.Skills[key])
-		if val == "" {
-			continue
-		}
-		label, ok := skillLabels[key]
-		if !ok {
-			label = key
-		}
-		rows = append(rows, "     \\textbf{"+esc(label)+"} {: "+esc(val)+"}")
-	}
-	if len(rows) == 0 {
-		return ""
+	for _, r := range skillRows {
+		rows = append(rows, "     \\textbf{"+esc(r[0])+"} {: "+esc(r[1])+"}")
 	}
 	body := strings.Join(rows, " \\vspace{2pt} \\\\\n")
 	return "\\section{SKILLS}\n" +

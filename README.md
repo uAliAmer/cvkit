@@ -3,8 +3,8 @@
 [![CI](https://github.com/uAliAmer/cvgen/actions/workflows/ci.yml/badge.svg)](https://github.com/uAliAmer/cvgen/actions/workflows/ci.yml)
 
 A single-binary Go CLI that turns one JSON file into a CV. One source of truth,
-many outputs — a LaTeX résumé today, with role-specific variants built from the
-same data.
+many outputs — a LaTeX/PDF résumé, Markdown, and plain text, with role-specific
+variants built from the same data.
 
 It's a Go rewrite of a Python build script, and it does what the Python version
 couldn't: build every variant in parallel, compile straight to PDF, watch for
@@ -58,6 +58,7 @@ cvgen validate              # sanity-check the JSON before building
 |---|---|
 | `cvgen build [in] [out]` | Render a CV JSON to a LaTeX `.tex`. |
 | `cvgen build --all [dir]` | Build every `cv_data*.json` variant in `dir`, in parallel. |
+| `cvgen export [in] [out]` | Render to another format: `-f tex`, `-f md`, or `-f txt`. |
 | `cvgen pdf [in]` | Build then compile to PDF with XeLaTeX. `--keep-tex` to retain the `.tex`. |
 | `cvgen sync [in] [out]` | Copy a validated JSON to the portfolio data path. |
 | `cvgen validate [in]` | Check for missing fields and malformed entries. `--links` also HTTP-checks every project link. |

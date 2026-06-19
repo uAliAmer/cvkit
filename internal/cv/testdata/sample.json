@@ -1,0 +1,46 @@
+{
+  "name": "Sample Person",
+  "phone": "+1 555 000 1111",
+  "email": "sample@example.com",
+  "location": "Somewhere",
+  "linkedin": "sampleperson",
+  "github": "sampleperson",
+  "summary": "A summary with a special char: 100% & rising, cost $5, a_b, and an arrow x → y.",
+  "experience": [
+    {
+      "company": "Example Corp",
+      "dates": "2021 -- Present",
+      "title": "Engineer",
+      "location": "Remote",
+      "bullets": "First bullet\nSecond bullet with & ampersand"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Widget",
+      "link": "https://github.com/sampleperson/widget",
+      "dates": "2023",
+      "tech": "Go",
+      "bullets": "Does a thing"
+    },
+    {
+      "name": "Gadget",
+      "tech": "TypeScript",
+      "bullets": "No link here"
+    }
+  ],
+  "education": [
+    {
+      "school": "Some University",
+      "dates": "2017 -- 2021",
+      "degree": "B.S.",
+      "location": "Town",
+      "notes": "Graduated with honors"
+    }
+  ],
+  "skills": {
+    "technical": "Go, TypeScript",
+    "tools": "Git, Docker",
+    "Custom Group": "Anything goes here"
+  }
+}

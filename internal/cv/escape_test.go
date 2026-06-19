@@ -4,14 +4,14 @@ import "testing"
 
 func TestEsc(t *testing.T) {
 	cases := map[string]string{
-		"":             "",
-		"a & b":        `a \& b`,
-		"100%":         `100\%`,
-		"a_b":          `a\_b`,
-		"x → y":        `x $\rightarrow$ y`,
+		"":      "",
+		"a & b": `a \& b`,
+		"100%":  `100\%`,
+		"a_b":   `a\_b`,
+		"x → y": `x $\rightarrow$ y`,
 		// NOTE: matches build_cv.py exactly — the {} from \textbackslash{} get
 		// re-escaped by the later brace rules. Faithful port of a latent quirk.
-		`\path`: `\textbackslash\{\}path`,
+		`\path`:        `\textbackslash\{\}path`,
 		"{braces}":     `\{braces\}`,
 		"C# $5 #1 ~ ^": `C\# \$5 \#1 \textasciitilde{} \textasciicircum{}`,
 	}

@@ -84,14 +84,7 @@ func buildOne(in, out string) error {
 
 // deriveTexName maps cv_data.json -> cv.tex and cv_data_<role>.json -> cv_<role>.tex.
 func deriveTexName(in string) string {
-	base := strings.TrimSuffix(filepath.Base(in), filepath.Ext(in))
-	switch {
-	case base == "cv_data":
-		base = "cv"
-	case strings.HasPrefix(base, "cv_data_"):
-		base = "cv_" + strings.TrimPrefix(base, "cv_data_")
-	}
-	return filepath.Join(filepath.Dir(in), base+".tex")
+	return deriveName(in, ".tex")
 }
 
 func argOrDefault(args []string, i int, def string) string {
