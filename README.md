@@ -33,6 +33,17 @@ tar -xzf cvgen_*_linux_amd64.tar.gz
 sudo mv cvgen /usr/local/bin/
 ```
 
+## Example
+
+See [`examples/cv_data.json`](examples/cv_data.json) for a complete sample, the
+generated [`examples/cv_example.tex`](examples/cv_example.tex), and the compiled
+result: **[examples/cv_example.pdf](examples/cv_example.pdf)**.
+
+```bash
+cvgen build examples/cv_data.json examples/cv_example.tex   # render the .tex
+cvgen pdf   examples/cv_data.json                           # compile to PDF (needs XeLaTeX)
+```
+
 ## Quick start
 
 ```bash
