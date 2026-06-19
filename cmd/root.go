@@ -13,6 +13,9 @@ var rootCmd = &cobra.Command{
 	Short: "Generate a CV from one JSON source into multiple formats",
 	Long: "cvgen turns a single cv_data.json into a LaTeX resume, portfolio JSON,\n" +
 		"and more. One source of truth, many outputs.",
+	// Errors are runtime failures, not usage mistakes; Execute prints them.
+	SilenceUsage:  true,
+	SilenceErrors: true,
 }
 
 // Execute runs the root command.
